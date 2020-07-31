@@ -1,29 +1,20 @@
-# Knobby was written to control the flow of drug solutions in slice FSCV via micro servos.
-# The GUI was made to reflect the color and number of knobs that are available, with each knob color corresponding
-# to a particular drug concentration. The servos (one per knob) are connected to pins on an Arduino Uno. The Arduino
-# communicates with the computer running FSCV software via a USB connection.  The servos are also connected to a
-# 5V battery pack for power. Demon Voltammetry software used for FSCV can be set up to communicate with the Arduino
-# at a user-defined pin (see greyed out code below). The labels for each color/knob can be changed here in the
-# code. On startup, each servo is automatically turned to the OFF position.
-
-# ***IMPORTANT*** The autorun function can only be started ONCE PER SESSION.  If you start and stop the autorun
-# function, you must exit and re-open Knobby in order to start Autorun again.  Autorun can be stopped by
-# pressing the STOP button or exiting the program.
-
-
 import serial.tools.list_ports
 from tkinter import *
 from pyfirmata import SERVO, Arduino
 import threading
 from threading import Event
 
+# Search for COM port w/ Arduino and connect to that port
 ports = list(serial.tools.list_ports.comports())
 for p in ports:
-    if "Arduino Uno" in p.description:
+    if "Arduino" in p.description:
         board = Arduino(p.device)
         print(p.device, p.description)
         break
-# Connect to Arduino and set up pins for servos
+    else:
+        print("Cannot find Arduino in COM port")
+
+# Set up pins for servos
 board.digital[2].mode = SERVO
 board.digital[3].mode = SERVO
 board.digital[4].mode = SERVO
@@ -134,14 +125,20 @@ status_window.config(height=2, width=7)
 # threaded loop is running
 exit = Event()
 
+
 def stop():
     exit.set()
 
-# This counts up to 7 files for each concentration
+
+# This counts up to 7 files for each concentration. To match Demon, 1st 30s = data collection, subsequent 150s = wait
+# period with new file name.
 def file_counter():
     for i in range(1, 8):
         status_window.config(text=f'File {i}')
-        exit.wait(180)
+        exit.wait(30)
+        if not i == 7:
+            status_window.config(text=f'File {i+1}')
+            exit.wait(151)
 
 # Threaded autorun function. Can only be started once. Must exit and restart program to rerun this function.
 # Checks value of checkbox prior to starting each concentration
@@ -181,11 +178,13 @@ def autorun():
         stop_b.config(relief=RAISED, bg="SystemButtonFace")
         status_window.config(bg='SystemButtonFace', text='Stopped')
 
-#Threads the autorun function so it can run concurrently w/ tkinter window
+
+# Threads the autorun function so it can run concurrently w/ tkinter window
 t1 = threading.Thread(target=autorun)
 t1.isDaemon()
 
-#starts autorun thread
+
+# starts autorun thread
 def startup():
     t1.start()
 
