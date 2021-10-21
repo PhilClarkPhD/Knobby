@@ -7,6 +7,4 @@ Once you have positioned your working and reference electrodes you can step away
 
 If we didnt have to worry about this step we would have much more freedom to read, do surgeries, or work on our github profiles without worrying about missing a timer or physically bumping into the rig and ruining our experiment (a rare but devastating event). I built Knobby to eliminate those issues and finally give us a fully automated FSCV setup.
 
-Knobby consists of an array of 6 servos each attached to a knob via a custom 3D-printed adaptor. The servos are connected to an arduino running the standard firmata protocol which then connects to the computer via USB.  The GUI was made in Tkinter and allows manual control of the knobs, but also includes an autorun function that, if selected, will automatically turn the knobs at user-defined intervals. 
-
-It's simple and it works!
+Knobby consists of an array of 6 servos each attached to a knob via a custom 3D-printed adaptor. The servos are connected to an arduino running the standard firmata protocol which then connects to the computer via USB.  The GUI was made in Tkinter and allows manual control of the knobs with the pyfirmata library, but also includes an autorun function that, if selected, will automatically turn the knobs at user-defined time intervals. It's a simple solution, and it works!
