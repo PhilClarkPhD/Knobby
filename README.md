@@ -1,7 +1,7 @@
 # Knobby
 Knob control program for ex vivo fast-scan cyclic voltammetry (FSCV)
 
-Ex vivo FSCV experiments in the España lab are like a well-oiled machine - everything is automated! Well, almost everything...
+Ex vivo FSCV experiments in the España lab run like a well-oiled machine - everything is automated! Well, almost everything...
 
 Once you have placed your working and reference electrodes you can step away from the rig except for one thing. You'll have to come back every 20 minutes for the next 2 hours just to turn a knob! So, so close to full automation.
 
