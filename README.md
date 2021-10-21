@@ -1,10 +1,12 @@
 # Knobby
-Knob control program for slice FSCV
+Knob control program for ex vivo fast-scan cyclic voltammetry (FSCV)
 
-Knobby was written to control the flow of drug solutions in slice FSCV via micro servos. The GUI was made to reflect the color and number of knobs that are available, with each knob color corresponding to a particular drug concentration. The servos (one per knob) receive commands from the computer via an Arduino Uno. The Arduino communicates with the computer via a USB. The servos receive power from 6V battery pack. 
+Ex vivo FSCV experiments in the España lab are like a well-oiled machine - everything is automated! Well, almost everything...
 
-Demon Voltammetry software used for FSCV can be set up to communicate with the Arduino at a user-defined pin (see comments in code) so that Knobby starts automatically when file collections start. Currently, the Autorun button does this. The labels for each knob can be changed in the GUI, and you can select which knobs will run in the Autorun function by selecting or de-selecting the "Run" checkbox for each knob. The default is set to 0.3-30uM cocaine on knobs 2-6 (green thru blue).
+Once you have placed your working and reference electrodes you can step away from the rig except for one thing. You'll have to come back every 20 minutes for the next 2 hours just to turn a knob! So, so close to full automation.
 
-The Autorun function turns the first knob ON immediately. After that, it counts up to 7 files, each lasting 180s, before turning on the next knob.
+If we didnt have to worry about this step we would have much more freedom to read, do surgeries, or work on our github profiles without worrying about missing a timer or physically bumping into the rig and ruining our experiment (a rare but devastating event). I built Knobby to eliminate those issues and finally give us a fully automated FSCV setup.
 
-***IMPORTANT*** The autorun function can only be started ONCE PER SESSION.  If you start and stop the autorun function, you must exit and re-open Knobby in order to start Autorun again.  Autorun can be stopped by pressing the STOP button or exiting the program. 
+Knobby consists of an array of 6 servos each attached to a knob via a custom 3D-printed adaptor. The servos are connected to an arduino running the standard firmata protocol which then connects to the computer via USB.  The GUI was made in Tkinter and allows manual control of the knobs, but also includes an autorun function that, if selected, will automatically turn the knobs at user-defined intervals. 
+
+It's simple and it works!
