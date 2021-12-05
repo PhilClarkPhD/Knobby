@@ -1,5 +1,5 @@
 # Knobby
-*Knob control program for ex vivo fast-scan cyclic voltammetry (FSCV)*
+**_Knob control program for ex vivo fast-scan cyclic voltammetry (FSCV)_**
 
 Ex vivo FSCV experiments in the España lab run like a well-oiled machine - everything is automated! Well, almost everything...
 
